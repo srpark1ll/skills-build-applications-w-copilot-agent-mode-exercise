@@ -8,7 +8,7 @@ import leaderboardRouter from './routes/leaderboard';
 import teamsRouter from './routes/teams';
 import usersRouter from './routes/users';
 import workoutsRouter from './routes/workouts';
-
+  
 const app = express();
 
 app.use(cors());
