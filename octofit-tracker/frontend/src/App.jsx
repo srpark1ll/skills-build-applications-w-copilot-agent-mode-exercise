@@ -1,31 +1,62 @@
+import { NavLink, Navigate, Route, Routes } from 'react-router-dom'
+import Activities from './components/Activities.jsx'
+import Leaderboard from './components/Leaderboard.jsx'
+import Teams from './components/Teams.jsx'
+import Users from './components/Users.jsx'
+import Workouts from './components/Workouts.jsx'
+import { API_BASE_URL, isCodespaceConfigured } from './api.js'
+
+const navigation = [
+  { label: 'Activities', to: '/activities' },
+  { label: 'Leaderboard', to: '/leaderboard' },
+  { label: 'Teams', to: '/teams' },
+  { label: 'Users', to: '/users' },
+  { label: 'Workouts', to: '/workouts' },
+]
+
 function App() {
   return (
-    <main className="container py-5">
-      <header className="d-flex align-items-center gap-3 mb-5">
-        <img
-          src="/octofitapp-small.png"
-          alt="OctoFit Tracker"
-          width="64"
-          height="64"
-        />
-        <div>
-          <h1 className="mb-1">OctoFit Tracker</h1>
-          <p className="text-body-secondary mb-0">
-            Your fitness tracking application is ready to build.
-          </p>
+    <div className="app-shell">
+      <header className="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+        <div className="container">
+          <NavLink className="navbar-brand d-flex align-items-center gap-2" to="/activities">
+            <img src="/octofitapp-small.png" alt="" width="40" height="40" />
+            <span>OctoFit Tracker</span>
+          </NavLink>
+          <nav aria-label="Main navigation" className="navbar-nav flex-row flex-wrap gap-1">
+            {navigation.map(({ label, to }) => (
+              <NavLink
+                className={({ isActive }) =>
+                  `nav-link px-2${isActive ? ' active' : ''}`
+                }
+                key={to}
+                to={to}
+              >
+                {label}
+              </NavLink>
+            ))}
+          </nav>
         </div>
       </header>
 
-      <section className="card shadow-sm">
-        <div className="card-body">
-          <h2 className="h5 card-title">Application status</h2>
-          <p className="card-text mb-0">
-            The React frontend is running. API services are available on port
-            8000.
-          </p>
-        </div>
-      </section>
-    </main>
+      <main className="container py-4 py-md-5">
+        {!isCodespaceConfigured && (
+          <div className="alert alert-info" role="status">
+            VITE_CODESPACE_NAME is not set. Using the local API at {API_BASE_URL}.
+            Set the variable in .env.local to use your Codespace API.
+          </div>
+        )}
+        <Routes>
+          <Route path="/" element={<Navigate replace to="/activities" />} />
+          <Route path="/activities" element={<Activities />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
+          <Route path="/teams" element={<Teams />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/workouts" element={<Workouts />} />
+          <Route path="*" element={<Navigate replace to="/activities" />} />
+        </Routes>
+      </main>
+    </div>
   )
 }
 
