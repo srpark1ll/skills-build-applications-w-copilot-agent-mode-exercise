@@ -1,0 +1,40 @@
+:root {
+  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+  min-width: 320px;
+  min-height: 100%;
+  margin: 0;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.app-shell {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.navbar-brand img {
+  object-fit: contain;
+}
+
+.nav-link.active {
+  color: #fff;
+  font-weight: 600;
+}
+
+@media (max-width: 575.98px) {
+  .navbar > .container {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
